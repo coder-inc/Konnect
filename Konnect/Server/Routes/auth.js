@@ -4,9 +4,15 @@ const mongoose = require('mongoose') ;
 const User = mongoose.model("User") ; 
 const bcryptjs = require('bcryptjs') // bcrypt is js package whic his used to hide the password(encrypt it) and installed using npm install bcryptjs
 const jwt = require('jsonwebtoken') ;
+const {JWT_SECRET} = require('../keys') ; //This is a token through which user can access protected data after successfully login
+const requireLogin = require('../Middleware/requirelogin')
 
-router.get('/',(req,res)=>{
-    res.send("hello") ;
+// router.get('/',(req,res)=>{
+//     res.send("hello") ;
+// })
+
+router.get('/protected',requireLogin,(req,res)=>{
+    res.send("Hello User") ;
 })
 
 router.post('/signup',(req,res)=>{ //posting data(name email pass) through request after user requests the callback function will fire
@@ -61,6 +67,8 @@ router.post('/signin',(req,res)=>{
             if(doMatch){
                 // res.json({message:"successfully signed in"}) ; // instead of this message we should send user a token so that after successfully signed he can access all of his protected data
                 // to generate token we use json web token package using npm install jsonwebtoken
+                const token = jwt.sign({_id:savedUser._id},JWT_SECRET) ; // key is _id and token is generated on the basis of userId
+                res.json({token}) ;
             }
             else{
                 return res.status(422).json({error:"Invalid Email or password"}) ;
