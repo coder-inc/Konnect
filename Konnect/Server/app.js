@@ -2,13 +2,9 @@ const express = require('express') ; // called for express
 const app = express() ; // invoked the express created
 const PORT = 5000 ; // create a separate port 
 const mongoose = require('mongoose') ; // called for mongoose
-const {MONGOURI} = require('./keys') // restructured the url
+const {MONGOURI} = require('../Server/keys') // restructured the url
 
 
-require("./Models/user") ; // Registering model in app.js..we are not storing this in const because we are not exporting in the user.js..also error comes that we used the same model in multiple files when exported from user.js and stored here 
-
-app.use(express.json()) ; // to take all the incoming requests from frontend in JSOn
-app.use(require('./Routes/auth')) ; //Registering routes
 
 mongoose.connect(MONGOURI,{
     useNewUrlParser:true,
@@ -20,6 +16,13 @@ mongoose.connection.on('connected',()=>{ // After successful connection this cal
 mongoose.connection.on('error',(err)=>{
     console.log("err connecting",err) ;
 })
+
+require("./Models/user") ; // Registering model in app.js..we are not storing this in const because we are not exporting in the user.js..also error comes that we used the same model in multiple files when exported from user.js and stored here 
+require('./Models/post') ;
+
+app.use(express.json()) ; // to take all the incoming requests from frontend in JSOn
+app.use(require('./Routes/auth')) ; //Registering routes
+app.use(require('./Routes/post')) ; 
 
                                         //TUTORIAL STARTS
 // //constructing a middleware
