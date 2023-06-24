@@ -1,3 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Belanosima&display=swap');
+
 a{
   color: black !important;
 }
+
+
+.brand-logo,h2{
+  font-family: 'Belanosima', sans-serif;
+}
+
+/* CSS for login page */
+
+.mycard{
+  margin-top: 30px ;
+}
+
+.auth-card{
+  padding: 20px; 
+  text-align: center;
+  max-width: 400px;
+  margin: 10px auto;
+}
+
+.input-field input[type=text]:focus {
+  border-bottom: 1px solid rgb(8, 93, 252)!important ;
+  box-shadow: 0 1px 0 0 rgb(8, 93, 252) !important ;
+}
+
+/* CSS for Login Page ends */
+
+/* CSS for profile page */
+
+.gallery{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.item{
+  width:30% ;
+}
+
+/* CSS for profile page ends */
+
+/* CSS for Home page */
+
+.home-card{
+  max-width: 500px;
+  height: max-content;
+  margin: 26px auto;
+}
+
+/* CSS for Home page end */
