@@ -5,8 +5,8 @@ const Signup = () =>{
     const[name,setName] = useState("") ;
     const[password,setPassword] = useState("") ;
     const[email,setEmail] = useState("") ;
-    const postData = ()=>{  //connecting frontend to backend to receive the post in the backend in JOSn form 
-        fetch("http://localhost:5000/signup",{
+    const postData = ()=>{  //connecting frontend to backend to receive the post in the backend in JOSN form 
+        fetch("http://localhost:5000/signup",{  //Both node and react have different servers so inorder to send data to node we are sending our req from port 3000 to 5000 of mode sp added a proxy in package.json
             method: "post" ,
             headers: {
                 "Content-Type": "application/json"
