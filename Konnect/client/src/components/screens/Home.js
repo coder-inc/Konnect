@@ -9,7 +9,7 @@ const Home = () =>{
                     <img src='https://images.unsplash.com/photo-1567090723733-b8a3deb5102d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fHdhbGxhcGFwZXJ8ZW58MHwwfDB8fHww&auto=format&fit=crop&w=500&q=60' alt='#'/>
                 </div>
                 <div className='card-content'>
-                <i class="material-icons" style={{color:'red'}}>favorite</i>
+                <i className="material-icons" style={{color:'red'}}>favorite</i>
                     <h6>Title</h6>
                     <p>Lorem ipsum dolor sit amet</p>
                     <input type='text' placeholder='add a comment'/>
@@ -21,7 +21,7 @@ const Home = () =>{
                     <img src='https://images.unsplash.com/photo-1567090723733-b8a3deb5102d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fHdhbGxhcGFwZXJ8ZW58MHwwfDB8fHww&auto=format&fit=crop&w=500&q=60' alt='#'/>
                 </div>
                 <div className='card-content'>
-                <i class="material-icons" style={{color:'red'}}>favorite</i>
+                <i className="material-icons" style={{color:'red'}}>favorite</i>
                     <h6>Title</h6>
                     <p>Lorem ipsum dolor sit amet</p>
                     <input type='text' placeholder='add a comment'/>
@@ -33,7 +33,7 @@ const Home = () =>{
                     <img src='https://images.unsplash.com/photo-1567090723733-b8a3deb5102d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fHdhbGxhcGFwZXJ8ZW58MHwwfDB8fHww&auto=format&fit=crop&w=500&q=60' alt='#'/>
                 </div>
                 <div className='card-content'>
-                <i class="material-icons" style={{color:'red'}}>favorite</i>
+                <i className="material-icons" style={{color:'red'}}>favorite</i>
                     <h6>Title</h6>
                     <p>Lorem ipsum dolor sit amet</p>
                     <input type='text' placeholder='add a comment'/>
@@ -45,7 +45,7 @@ const Home = () =>{
                     <img src='https://images.unsplash.com/photo-1567090723733-b8a3deb5102d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fHdhbGxhcGFwZXJ8ZW58MHwwfDB8fHww&auto=format&fit=crop&w=500&q=60' alt='#'/>
                 </div>
                 <div className='card-content'>
-                <i class="material-icons" style={{color:'red'}}>favorite</i>
+                <i className="material-icons" style={{color:'red'}}>favorite</i>
                     <h6>Title</h6>
                     <p>Lorem ipsum dolor sit amet</p>
                     <input type='text' placeholder='add a comment'/>

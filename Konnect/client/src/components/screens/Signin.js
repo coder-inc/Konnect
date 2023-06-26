@@ -14,7 +14,7 @@ const Signin = () =>{
                     type='text'
                     placeholder='Password'
                 />
-                <button className="btn waves-effect waves-light #64b5f6 blue lighten-2">
+                <button className="btn waves-effect waves-light #64b5f6 blue darken-1">
                     Signin
                 </button>
                 <h5>
