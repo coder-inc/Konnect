@@ -16,8 +16,8 @@ router.get('/allpost',(req,res)=>{
 })
 
 router.post('/createpost',requireLogin,(req,res)=>{
-    const {title,body} = req.body
-    if(!title || !body){
+    const {title,body,pic} = req.body
+    if(!title || !body || !pic){
         return res.status(422).json({error:"Please Add all the fields"}) ;
     }
     // console.log(req.user)
@@ -26,6 +26,7 @@ router.post('/createpost',requireLogin,(req,res)=>{
     const post = new Post({
         title,
         body,
+        pic, //picture to send to the cloudinary
         postedBy : req.user // who posted it
     })
     post.save().then(result=>{
