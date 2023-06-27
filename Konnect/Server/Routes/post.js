@@ -26,7 +26,7 @@ router.post('/createpost',requireLogin,(req,res)=>{
     const post = new Post({
         title,
         body,
-        pic, //picture to send to the cloudinary
+        photo:pic, //picture to send to the cloudinary
         postedBy : req.user // who posted it
     })
     post.save().then(result=>{

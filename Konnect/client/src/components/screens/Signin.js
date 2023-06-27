@@ -29,6 +29,8 @@ const Signin = () =>{
                 M.toast({html: data.error,classes:"#c62828 red darken-3"}) ; //for creating pop-up message
             }
             else{
+                localStorage.setItem("jwt",data.token) ; // we need to save the token to the local storage as the file uploading is protected
+                localStorage.setItem("user",JSON.stringify(data.user)) ;
                 M.toast({html:"Login Successful",classes:"#43a047 green darken-1"}) ;
                 Navigate('/')//Navigating the user to the home screen
             }
