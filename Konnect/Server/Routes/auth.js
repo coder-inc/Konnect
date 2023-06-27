@@ -68,7 +68,8 @@ router.post('/signin',(req,res)=>{
                 // res.json({message:"successfully signed in"}) ; // instead of this message we should send user a token so that after successfully signed he can access all of his protected data
                 // to generate token we use json web token package using npm install jsonwebtoken
                 const token = jwt.sign({_id:savedUser._id},JWT_SECRET) ; // key is _id and token is generated on the basis of userId
-                res.json({token:token}) ;
+                const {_id,name,email} = savedUser ;
+                res.json({token:token,user:{_id,name,email}}) ;
             }
             else{
                 return res.status(422).json({error:"Invalid Email or password"}) ;

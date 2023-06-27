@@ -52,3 +52,11 @@ a{
 }
 
 /* CSS for Home page end */
+
+/* CSS for toastbox starts*/
+#toast-container{
+  top:30px !important;
+  right: 20px !important;
+  left: auto !important;
+}
+/* CSS for toastbox ends */
