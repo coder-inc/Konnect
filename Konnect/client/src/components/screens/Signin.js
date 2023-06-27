@@ -1,8 +1,10 @@
-import React,{useState} from 'react' ;
+import React,{useState,useContext} from 'react' ;
 import {Link,useNavigate} from 'react-router-dom' ;
+import {UserContext} from '../../App' ;
 import M from "materialize-css" ;
 
 const Signin = () =>{
+    const {state,dispatch} = useContext(UserContext) ;
     const Navigate = useNavigate() ; // creating for navigating the user to a location after successful output
     const[password,setPassword] = useState("") ;
     const[email,setEmail] = useState("") ;
@@ -31,6 +33,7 @@ const Signin = () =>{
             else{
                 localStorage.setItem("jwt",data.token) ; // we need to save the token to the local storage as the file uploading is protected
                 localStorage.setItem("user",JSON.stringify(data.user)) ;
+                dispatch({type:"USER",payload:data.user}) ;
                 M.toast({html:"Login Successful",classes:"#43a047 green darken-1"}) ;
                 Navigate('/')//Navigating the user to the home screen
             }

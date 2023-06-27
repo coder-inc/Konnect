@@ -35,6 +35,7 @@ const CreatePost = ()=>{
                 console.log(err) ;
             })
         }
+        // eslint-disable-next-line
     },[url]) // this url changes useEffect will kick in later
 
     const postDetails = ()=>{ //posting all the images at cloudinary
