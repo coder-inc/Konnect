@@ -53,7 +53,7 @@ const Signin = () =>{
                     onChange={(e)=>setEmail(e.target.value)}
                 />
                 <input 
-                    type='text'
+                    type='password'
                     placeholder='Password'
                     value = {password} //getting the value of password from backend
                     onChange={(e)=>setPassword(e.target.value)}
