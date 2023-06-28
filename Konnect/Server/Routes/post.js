@@ -4,9 +4,9 @@ const mongoose = require('mongoose') ;
 const requireLogin = require('../Middleware/requirelogin') ;
 const Post = mongoose.model("Post") ;
 
-router.get('/allpost',(req,res)=>{
+router.get('/allpost',requireLogin,(_req,res)=>{
     Post.find() // to get all the posts
-    .populate("PostedBy","_id name") // written to get only the selected info of the user
+    .populate("postedBy","_id name") // written to get only the selected info of the user
     .then(posts=>{
         res.json({posts})
     })

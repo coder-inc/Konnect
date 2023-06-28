@@ -8,7 +8,7 @@ const NavBar = ()=>{
       if(state){ // if state exists that means login successful so only two options needs to be shown... we have to get rid of signin and signup then
         return [ // we are outputing an array
           <li><Link to="/profile">Profile</Link></li>,
-        <li><Link to="/create">Create Post</Link></li>
+          <li><Link to="/create">Create Post</Link></li>
         ]
       }
       else{ // if state doesnt exits that means login unsuccessful
