@@ -1,4 +1,4 @@
-import React,{createContext, useEffect, useReducer} from 'react' ;
+import React,{createContext, useEffect, useReducer, useContext} from 'react' ;
 import NavBar from './components/NavBar' ;
 import './App.css' ;
 import {BrowserRouter,Route, Routes, useNavigate} from 'react-router-dom' ;
@@ -14,12 +14,11 @@ export const UserContext = createContext() ;
 
 const Routing = ()=>{
   const Navigate = useNavigate() ;
-  // const {state,dispatch} = useContext(UserContext) ; // if the user closed the application but hasnt logged out so if he again opening the website he must access the protected data so for this we use this
+  const {state,dispatch} = useContext(UserContext) ; // if the user closed the application but hasnt logged out so if he again opening the website he must access the protected data so for this we use this
   useEffect(()=>{
     const user = JSON.parse(localStorage.getItem("user")) ;
     if(user){ //if user is logged in then he can access profile 
-      // dispatch({type:"USER",payload:user}) ;
-      Navigate('/') ;
+      dispatch({type:"USER",payload:user}) ;
     }
     else{ // if user is not logged in then he cannot access profile
       Navigate('/signin') // if we dont have the user we will redirect to login page

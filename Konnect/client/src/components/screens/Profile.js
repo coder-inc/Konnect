@@ -1,6 +1,9 @@
-import React,{useEffect} from 'react' ;
+import React,{createContext,useEffect,useState,useContext} from 'react' ;
+import {UserContext} from '../../App' ;
 
 const Profile = () =>{
+    const [mypics,setPics] = useState([]) ;
+    const {state,dispatch} = useContext(UserContext) ;
     useEffect(()=>{
         fetch('/mypost',{
             headers:{
@@ -8,7 +11,7 @@ const Profile = () =>{
             }
         }).then(res=>res.json())
         .then(result=>{
-            console.log(result) ;
+            setPics(result.mypost) ;
         })
     },[])
     return (
@@ -24,7 +27,7 @@ const Profile = () =>{
                     src="https://media.istockphoto.com/id/1430286042/photo/focus-businessman-designer-and-computer-planning-typing-and-strategy-for-working-in-modern.webp?b=1&s=170667a&w=0&k=20&c=tyncL3Dd_2xFbUfrdvG5cvhWx-8ATolXx4zs-Bh44J4=" alt="#" />
                 </div>
                 <div>
-                    <h4>Abhishek Singh Sankhla</h4>
+                    <h4>{state?state.name:"loading"}</h4>
                     <div style={{display:'flex', justifyContent:'space-between', width:'108%'}}>
                         <h6>40 Posts</h6>
                         <h6>40 Followers</h6>
@@ -32,13 +35,14 @@ const Profile = () =>{
                     </div>
                 </div>
             </div>
-            <div className='gallery' style={{}}>
-                <img className='item' src="https://media.istockphoto.com/id/1430286042/photo/focus-businessman-designer-and-computer-planning-typing-and-strategy-for-working-in-modern.webp?b=1&s=170667a&w=0&k=20&c=tyncL3Dd_2xFbUfrdvG5cvhWx-8ATolXx4zs-Bh44J4=" alt="#" />
-                <img className='item' src="https://media.istockphoto.com/id/1430286042/photo/focus-businessman-designer-and-computer-planning-typing-and-strategy-for-working-in-modern.webp?b=1&s=170667a&w=0&k=20&c=tyncL3Dd_2xFbUfrdvG5cvhWx-8ATolXx4zs-Bh44J4=" alt="#" />
-                <img className='item' src="https://media.istockphoto.com/id/1430286042/photo/focus-businessman-designer-and-computer-planning-typing-and-strategy-for-working-in-modern.webp?b=1&s=170667a&w=0&k=20&c=tyncL3Dd_2xFbUfrdvG5cvhWx-8ATolXx4zs-Bh44J4=" alt="#" />
-                <img className='item' src="https://media.istockphoto.com/id/1430286042/photo/focus-businessman-designer-and-computer-planning-typing-and-strategy-for-working-in-modern.webp?b=1&s=170667a&w=0&k=20&c=tyncL3Dd_2xFbUfrdvG5cvhWx-8ATolXx4zs-Bh44J4=" alt="#" />
-                <img className='item' src="https://media.istockphoto.com/id/1430286042/photo/focus-businessman-designer-and-computer-planning-typing-and-strategy-for-working-in-modern.webp?b=1&s=170667a&w=0&k=20&c=tyncL3Dd_2xFbUfrdvG5cvhWx-8ATolXx4zs-Bh44J4=" alt="#" />
-                <img className='item' src="https://media.istockphoto.com/id/1430286042/photo/focus-businessman-designer-and-computer-planning-typing-and-strategy-for-working-in-modern.webp?b=1&s=170667a&w=0&k=20&c=tyncL3Dd_2xFbUfrdvG5cvhWx-8ATolXx4zs-Bh44J4=" alt="#" />
+            <div className='gallery' >
+            {
+                mypics.map(item=>{
+                    return(
+                        <img key={item._id} className='item' src={item.photo} alt={item.title} /> //iterating through all the posts
+                    )
+                })
+            }
             </div>
         </div>
     )
