@@ -1,9 +1,9 @@
 import React,{useState,useEffect} from "react";
 import M from "materialize-css" ;
-import {useNavigation} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 
 const CreatePost = ()=>{
-    const Navigate = useNavigation ;
+    const Navigate = useNavigate() ;
     const [title,setTitle] = useState("") ;
     const [body,setBody] = useState("") ;
     const [image,setImage] = useState("") ;
@@ -81,9 +81,9 @@ const CreatePost = ()=>{
                     <span>Upload image</span>
                     <input type="file" onChange={(e)=>setImage(e.target.files[0])}/>
                 </div>
-            <div className="file-path-wrapper">
-                <input className="file-path validate" type="text"/>
-            </div>
+                <div className="file-path-wrapper">
+                    <input className="file-path validate" type="text"/>
+                </div>
             </div>
             <button className="btn waves-effect waves-light #64b5f6 blue darken-1"
             onClick={()=>postDetails()}>

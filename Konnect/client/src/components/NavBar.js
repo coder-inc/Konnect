@@ -1,6 +1,6 @@
 import React,{useContext} from 'react' ;
-import { Link } from 'react-router-dom';
-import { UserContext } from '../App';
+import {Link} from 'react-router-dom';
+import {UserContext} from '../App';
 
 const NavBar = ()=>{
     const {state,dispatch} = useContext(UserContext) // // state has the user details
