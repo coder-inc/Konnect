@@ -70,4 +70,20 @@ router.put("/unlike",requireLogin,(req,res)=>{
     })
 })
 
+router.put("/comment",requireLogin,(req,res)=>{
+    const comment = {
+        text:req.body.text,
+        postedBy:req.user._id
+    }
+    Post.findByIdAndUpdate(req.body.postId,{
+        $push:{comments:comment}},{
+            // new:true // we are pushing in the likes array, the id of the user who is logged in 
+    }).populate("comments.postedBy","_id name") //to expand the id because we want more things inside from id
+    .then((res)=>{
+        res.status(422).json({error:err})
+    }).catch((err)=>{
+        res.json(err) ;
+    })
+})
+
 module.exports = router
