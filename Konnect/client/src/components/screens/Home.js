@@ -1,10 +1,11 @@
 import React,{useState,useEffect,useContext} from 'react' ;
-import {UserContext} from '../../App'
+import {UserContext} from '../../App' ;
 
 const Home = () =>{
     const [data,setData] = useState([]) ;
     const {state} = useContext(UserContext) //state has the details of user who has logged in
     useEffect(()=>{
+        
         fetch('/allpost',{
                 headers:{
                     "Authorization": "Bearer "+ localStorage.getItem("jwt") //jwt is always present if successfully logged in hence no need to check whether present or not
@@ -97,13 +98,32 @@ const Home = () =>{
         })
     }
 
+      const deletePost = (postid)=>{
+        fetch(`/deletepost/${postid}`,{
+            method:"delete",
+            headers:{
+                Authorization:"Bearer "+localStorage.getItem("jwt")
+            }
+        }).then(res=>res.json())
+        .then(result=>{
+            console.log(result)
+            const newData = data.filter(item=>{
+                return item._id !== result._id
+            })
+            setData(newData)
+        })
+    }
+
     return (
         <div className='home'>
         {
             data.map(item=>{
                 return(
                     <div className='card home-card' key={item._id}>
-                        <h5>Abhishek</h5>
+                        <h5>Abhishek<i className="material-icons" style={{float:"right"}} onClick={()=>deletePost(item._id)}>
+                        delete</i>
+                        </h5>
+                        
                             <div className='card-image'>
                                 <img src={item.photo} alt='#'/>
                             </div>

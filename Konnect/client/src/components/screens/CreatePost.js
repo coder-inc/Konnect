@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from "react";
 import M from "materialize-css" ;
-import {useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom' ;
 
 const CreatePost = ()=>{
     const Navigate = useNavigate() ;
