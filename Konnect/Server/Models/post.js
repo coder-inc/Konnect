@@ -13,6 +13,7 @@ const postSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    likes:[{type:ObjectId,ref:"User"}], //likes features which in takes data of type object and referes to user for it.
     postedBy:{
         type : ObjectId,
         ref:"User" //refer to the user model(built a relation between user.js and post.js)
