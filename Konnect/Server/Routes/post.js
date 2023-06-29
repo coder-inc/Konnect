@@ -7,6 +7,7 @@ const Post = mongoose.model("Post") ;
 router.get('/allpost',requireLogin,(_req,res)=>{
     Post.find() // to get all the posts
     .populate("postedBy","_id name") // written to get only the selected info of the user
+    .populate("comments.postedBy","_id name")
     .then(posts=>{
         res.json({posts})
     })
@@ -79,6 +80,7 @@ router.put("/comment",requireLogin,(req,res)=>{
         $push:{comments:comment}},{
             // new:true // we are pushing in the likes array, the id of the user who is logged in 
     }).populate("comments.postedBy","_id name") //to expand the id because we want more things inside from id
+    .populate("postedBy","_id name")
     .then((res)=>{
         res.status(422).json({error:err})
     }).catch((err)=>{
