@@ -16,7 +16,7 @@ module.exports = (req,res,next)=> {
         const {_id} = payload // destructuring the id from payload
         User.findById(_id).then(userdata=>{
             req.user = userdata ; // accessing the user data through this
-            next()
+            next() ;
         })
     })
 }
