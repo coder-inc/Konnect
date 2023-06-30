@@ -64,3 +64,7 @@ a{
   left: auto !important;
 }
 /* CSS for toastbox ends */
+/* */
+.material-icons:hover{
+  cursor: pointer;
+}

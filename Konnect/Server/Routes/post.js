@@ -16,6 +16,18 @@ router.get('/allpost',requireLogin,(_req,res)=>{
     })
 })
 
+router.get('/getsubpost',requireLogin,(req,res)=>{ // posts of all the users i follow
+    Post.find({postedBy:{$in:req.user.following}}) // to get all the posts from my following list
+    .populate("postedBy","_id name") // written to get only the selected info of the user
+    .populate("comments.postedBy","_id name")
+    .then(posts=>{
+        res.json({posts})
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+})
+
 router.post('/createpost',requireLogin,(req,res)=>{
     const {title,body,pic} = req.body
     console.log(title,body,pic) ;
@@ -42,7 +54,7 @@ router.post('/createpost',requireLogin,(req,res)=>{
 //posts created by the user itself
 router.get('/mypost',requireLogin,(req,res)=>{
     Post.find({postedBy:req.user._id}) // all the post posted by the user who has logged in, is requested
-    .populate("PostedBy","_id name")
+    .populate("postedBy","_id name")
     .then(mypost=>{
         res.json({mypost}) ;
     })
