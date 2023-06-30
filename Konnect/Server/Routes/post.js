@@ -42,7 +42,7 @@ router.post('/createpost',requireLogin,(req,res)=>{
 //posts created by the user itself
 router.get('/mypost',requireLogin,(req,res)=>{
     Post.find({postedBy:req.user._id}) // all the post posted by the user who has logged in, is requested
-    .populate("postedBy","_id name")
+    .populate("PostedBy","_id name")
     .then(mypost=>{
         res.json({mypost}) ;
     })
@@ -51,61 +51,73 @@ router.get('/mypost',requireLogin,(req,res)=>{
     })
 })
 
-router.put("/like",requireLogin,(req,res)=>{
-    Post.findByIdAndUpdate(req.body.postId,{
-        $push:{likes:req.user._id}},{
-            // new:true // we are pushing in the likes array, the id of the user who is logged in 
-    }).then((res)=>{
-        res.status(422).json({error:err})
-    }).catch((err)=>{
-        res.json(err) ;
-    })
-})
-router.put("/unlike",requireLogin,(req,res)=>{
-    Post.findByIdAndUpdate(req.body.postId,{
-    $pull:{likes:req.user._id}}, // pull behaviour is to empty the array so after pressing the button likes become 0
-    {new:true // we are pushing in the likes array, the id of the user who is logged in 
-    }).then((res)=>{
-        res.status(422).json({error:err}) ;
-    }).catch((err)=>{
-        res.json(err) ;
-    })
-})
-
-router.put("/comment",requireLogin,(req,res)=>{
-    const comment = {
-        text:req.body.text,
-        postedBy:req.user._id
+router.put('/like', requireLogin, async (req, res) => {
+    try {
+      const result = await Post.findByIdAndUpdate(
+        req.body.postId,
+        { $push: { likes: req.user._id } },
+        { new: true }
+      ).exec();
+  
+      res.json(result);
+    } catch (err) {
+      res.status(422).json({ error: err });
     }
-    Post.findByIdAndUpdate(req.body.postId,{
-        $push:{comments:comment}},{
-            // new:true // we are pushing in the likes array, the id of the user who is logged in 
-    }).populate("comments.postedBy","_id name") //to expand the id because we want more things inside from id
-    .populate("postedBy","_id name")
-    .then((res)=>{
-        res.status(422).json({error:err})
-    }).catch((err)=>{
-        res.json(err) ;
-    })
-})
+});
+router.put("/unlike", requireLogin, async (req, res) => {
+    try {
+      const result = await Post.findByIdAndUpdate(
+        req.body.postId,
+        { $pull: { likes: req.user._id } },
+        { new: true }
+      ).exec();
+  
+      res.json(result);
+    } catch (err) {
+      res.status(422).json({ error: err });
+    }
+});
+router.put('/comment', requireLogin, async (req, res) => {
+    try {
+      const comment = {
+        text: req.body.text,
+        postedBy: req.user._id
+      };
+  
+      const result = await Post.findByIdAndUpdate(
+        req.body.postId,
+        { $push: { comments: comment } },
+        { new: true }
+      )
+        .populate("comments.postedBy", "_id name")
+        .populate("postedBy", "_id name")
+        .exec();
+  
+      res.json(result);
+    } catch (err) {
+      res.status(422).json({ error: err });
+    }
+  });
 
-router.delete('/deletepost/:postId',requireLogin,(req,res)=>{
-    Post.findOne({_id:req.params.postId})
-    .populate("postedBy","_id")
-    .exec((err,post)=>{
-        if(err || !post){
-            return res.status(422).json({error:err})
-        }
-        if(post.postedBy._id.toString() === req.user._id.toString()){
-            post.remove()
-            .then(result=>{
-                res.json(result) ;
-            }).catch(err=>{
-                console.log(err) ;
-            })
-        }
-    })
-    
-}) // parameter is given after colon so that postId specific post gets deleted
+  router.delete('/deletepost/:postId', requireLogin, async (req, res) => {
+    try {
+      const post = await Post.findOne({ _id: req.params.postId })
+        .populate("postedBy", "_id")
+        .exec();
+  
+      if (!post) {
+        return res.status(422).json({ error: "Post not found" });
+      }
+  
+      if (post.postedBy._id.toString() !== req.user._id.toString()) {
+        return res.status(401).json({ error: "Unauthorized access" });
+      }
+  
+      const result = await post.remove();
+      res.json(result);
+    } catch (err) {
+      res.status(500).json({ error: "Internal server error" });
+    }
+  }); // parameter is given after colon so that postId specific post gets deleted
 
 module.exports = router

@@ -5,14 +5,14 @@ const requireLogin = require('../Middleware/requirelogin') ;
 const Post = mongoose.model("Post") ;
 const User = mongoose.model("User") ;
 
-router.get('/user/:id',(req,res)=>{
-    User.findOne({_id:req.param.id})
+router.get('/user/:id',requireLogin,(req,res)=>{
+    User.findOne({_id:req.params.id})
     .select("-password")
     .then(user=>{
         Post.find({postedBy:req.param.id})
         .populate("postedBy","_id name")
         .then(err=>{
-            return res.json({user,posts}) ;
+            return res.json({user,Post}) ;
         })
     }).catch(err=>{
         return res.status(404).json({error:"User not Found"}) ;

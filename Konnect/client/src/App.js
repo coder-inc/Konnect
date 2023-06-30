@@ -3,11 +3,12 @@ import NavBar from './components/NavBar' ;
 import './App.css' ;
 import {BrowserRouter,Route, Routes, useNavigate} from 'react-router-dom' ;
 import Home from './components/screens/Home' ;
-import Login from './components/screens/Signin' ;
+import Signin from './components/screens/Signin' ;
 import Profile from './components/screens/Profile' ;
 import Signup from './components/screens/Signup' ;
 import CreatePost from './components/screens/CreatePost' ;
 import {reducer,initialState} from './reducer/userReducer' ;
+import UserProfile from './components/screens/UserProfile' ;
 
 
 export const UserContext = createContext() ;
@@ -27,10 +28,12 @@ const Routing = ()=>{
   return(
     <Routes>
       <Route exact path="/" element={<Home/>} />
-      <Route path="/signin" element={<Login/>} />
-      <Route path="/profile" element={<Profile/>} />
+      <Route path="/signin" element={<Signin/>} />
+      <Route exact path="/profile" element={<Profile/>} /> 
+      {/*exact is put their so that it doesnot coincide with UserProfile id */}
       <Route path="/signup" element={<Signup/>} />
       <Route path="/create" element={<CreatePost/>} />
+      <Route path="/profile/:userid" element={<UserProfile/>} />
     </Routes>
   )
 }

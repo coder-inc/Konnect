@@ -17,7 +17,7 @@ const requireLogin = require('../Middleware/requirelogin')
 
 router.post('/signup',(req,res)=>{ //posting data(name email pass) through request after user requests the callback function will fire
     // console.log(req.body) ; // After the user sends the data(Name, pass etc.), we can get through this
-    const {name,email,password} = req.body ; // we are taking all the data and storing it in a const set
+    const {name,email,password,pic} = req.body ; // we are taking all the data and storing it in a const set
     if(!email || !password || !name){ // If these datas are not present then run the below message
         return res.status(422).json({error:"Please add all the fields"}) ; //if we encounter error then we don't wish to proceed further thats why put a return //.status is return in order to update the status to 422 and .json is written in order to return the message in JSON //422 means server has understood the request but could'nt respond to it
     }
@@ -34,7 +34,8 @@ router.post('/signup',(req,res)=>{ //posting data(name email pass) through reque
             const user = new User({
                 email,
                 password:hashedpassword,
-                name
+                name,
+                pic
             })
     
             user.save()
@@ -68,8 +69,8 @@ router.post('/signin',(req,res)=>{
                 // res.json({message:"successfully signed in"}) ; // instead of this message we should send user a token so that after successfully signed he can access all of his protected data
                 // to generate token we use json web token package using npm install jsonwebtoken
                 const token = jwt.sign({_id:savedUser._id},JWT_SECRET) ; // key is _id and token is generated on the basis of userId
-                const {_id,name,email} = savedUser ;
-                res.json({token:token,user:{_id,name,email}}) ;
+                const {_id,name,email,pic} = savedUser ;
+                res.json({token:token,user:{_id,name,email,pic}}) ;
             }
             else{
                 return res.status(422).json({error:"Invalid Email or password"}) ;
