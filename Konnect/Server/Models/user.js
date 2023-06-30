@@ -1,6 +1,8 @@
 //This file is created to create a model and tell mongoDB that what type of data we will be storing 
 
+const { ObjectId } = require('mongodb');
 const mongoose = require('mongoose') ;
+const { Schema } = mongoose;
 
 const userSchema = new mongoose.Schema({
     name:{
@@ -14,7 +16,9 @@ const userSchema = new mongoose.Schema({
     password:{
         type:String,
         required:true 
-    }
+    },
+    followers:[{ type:ObjectId,ref:"User"}],
+    following:[{ type:ObjectId,ref:"User"}]
 });
 
 mongoose.model("User",userSchema) ;// Giving name to the model
