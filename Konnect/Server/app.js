@@ -23,6 +23,7 @@ require('./Models/post') ;
 app.use(express.json()) ; // to take all the incoming requests from frontend in JSOn
 app.use(require('./Routes/auth')) ; //Registering routes
 app.use(require('./Routes/post')) ; 
+app.use(require('./Routes/user')) ; 
 
                                         //TUTORIAL STARTS
 // //constructing a middleware
