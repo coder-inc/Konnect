@@ -64,7 +64,8 @@ a{
   left: auto !important;
 }
 /* CSS for toastbox ends */
-/* */
+
+/* CSS for card heading in posts */
 .material-icons:hover{
   cursor: pointer;
 }
