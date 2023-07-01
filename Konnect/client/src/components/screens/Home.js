@@ -4,21 +4,28 @@ import { Link } from 'react-router-dom';
 const Home = () => {
     const [data, setData] = useState([]);
     const { state, dispatch } = useContext(UserContext);
-
+  
     useEffect(() => {
-        fetch('/allpost', {
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('jwt')
-            }
+      fetch('/allpost', {
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+        }
+      })
+        .then(res => {
+          if (res.ok) {
+            return res.json();
+          } else {
+            throw new Error('Failed to fetch posts');
+          }
         })
-            .then(res => res.json())
-            .then(result => {
-                console.log(result);
-                setData(result.posts);
-            })
-            .catch(err => {
-                console.log(err);
-            });
+        .then(result => {
+          console.log(result);
+          setData(result.posts);
+        })
+        .catch(err => {
+          console.log(err);
+          // Handle error condition, e.g., set an error state
+        });
     }, []);
 
     const likePost = id => {

@@ -6,14 +6,14 @@ const Post = mongoose.model("Post") ;
 const User = mongoose.model("User") ;
 
 router.get('/user/:id', requireLogin, async (req, res) => {
-    try {
-      const user = await User.findOne({ _id: req.params.id }).select('-password');
-      const posts = await Post.find({ postedBy: req.params.id }).populate('postedBy', '_id name');
-      res.json({ user, posts });
-    } catch (err) {
-      res.status(404).json({ error: 'User not found' });
-    }
-  }); //if someone wants to see the profile of other user they will make a req on the slash user and then the id of the user, hence we will reciev the id
+  try {
+    const user = await User.findOne({ _id: req.params.id }).select('-password');
+    const posts = await Post.find({ postedBy: req.params.id }).populate('postedBy', '_id name');
+    res.json({ user, posts });
+  } catch (err) {
+    res.status(404).json({ error: 'User not found' });
+  }
+});//if someone wants to see the profile of other user they will make a req on the slash user and then the id of the user, hence we will reciev the id
 
   router.put('/follow', requireLogin, async (req, res) => {
     try {
@@ -64,5 +64,20 @@ router.get('/user/:id', requireLogin, async (req, res) => {
     }
   });
   
+  router.put('/updatepic', requireLogin, async (req, res) => {
+    try {
+      const user = await User.findByIdAndUpdate(
+        req.user._id,
+        { $set: { pic: req.body.pic } },
+        { new: true }
+      );
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+      res.json(user);
+    } catch (err) {
+      res.status(500).json({ error: 'Failed to update profile picture' });
+    }
+  });
 
 module.exports = router
