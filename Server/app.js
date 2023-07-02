@@ -1,9 +1,9 @@
 const express = require('express') ; // called for express
+const app = express() ; // invoked the express created
+const PORT = 5000 ; // create a separate port 
 const mongoose = require('mongoose') ; // called for mongoose
 const {MONGOURI} = require('../Server/keys') // restructured the url
-require("dotenv").config();
 
-const app = express() ; // invoked the express created
 
 
 mongoose.connect(MONGOURI,{
@@ -43,22 +43,9 @@ app.use(require('./Routes/user')) ;
 //     console.log("about") ; // we can middleware after a comma instead of writing it in app.use beacuase in app.use it runs for all but if we write it after comma in a particular route then it runs for itself only
 //     res.send("About Page") ;
 // })
-//TUTORIAL ENDS
+                                        //TUTORIAL ENDS
 
-                                        
-app.all('*', (req, res) => {
-res.status(404).json({ message: 'Route not found' });
-});
 
-// Get all environment variables
-const environmentVariables = process.env;
-console.log(environmentVariables);
-
-const PORT = process.env.PORT || 5000;
-    app.listen(PORT, () => {
-      console.log('Server is running on port', PORT);
-    });
-
-// app.listen(PORT,()=>{
-//     console.log('Server is running on',PORT) ;  // Here we are telling the app to listen that at PORT print server is running on .
-// })
+app.listen(PORT,()=>{
+    console.log('Server is running on',PORT) ;  // Here we are telling the app to listen that at PORT print server is running on .
+})
