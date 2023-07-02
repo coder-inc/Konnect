@@ -3,7 +3,7 @@
    "name": "konnect",
    "builds": [
        {
-           "src": "index.js",
+           "src": "app.js",
            "use": "@vercel/node"
        }
    ],
@@ -16,7 +16,7 @@
                "Access-Control-Allow-Headers": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
            },
            "src": "/(.*)",
-           "dest": "/index.js"
+           "dest": "/app.js"
        }
    ]
 }
