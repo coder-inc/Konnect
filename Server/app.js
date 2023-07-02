@@ -1,10 +1,9 @@
 const express = require('express') ; // called for express
-const app = express() ; // invoked the express created
 const mongoose = require('mongoose') ; // called for mongoose
 const {MONGOURI} = require('../Server/keys') // restructured the url
 require("dotenv").config();
-const PORT = 5000 || process.env.PORT ; // create a separate port 
 
+const app = express() ; // invoked the express created
 
 
 mongoose.connect(MONGOURI,{
@@ -46,7 +45,11 @@ app.use(require('./Routes/user')) ;
 // })
                                         //TUTORIAL ENDS
 
+app.all('*', (req, res) => {
+    res.status(404).json({ message: 'Route not found' });
+    });
+                                          
 
-app.listen(PORT,()=>{
-    console.log('Server is running on',PORT) ;  // Here we are telling the app to listen that at PORT print server is running on .
-})
+// app.listen(PORT,()=>{
+//     console.log('Server is running on',PORT) ;  // Here we are telling the app to listen that at PORT print server is running on .
+// })
