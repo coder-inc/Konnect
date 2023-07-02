@@ -1,8 +1,9 @@
 const express = require('express') ; // called for express
 const app = express() ; // invoked the express created
-const PORT = 5000 ; // create a separate port 
 const mongoose = require('mongoose') ; // called for mongoose
 const {MONGOURI} = require('../Server/keys') // restructured the url
+require("dotenv").config();
+const PORT = 5000 || process.env.PORT ; // create a separate port 
 
 
 
