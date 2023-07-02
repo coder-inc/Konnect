@@ -2,21 +2,43 @@
    "version": 2,
    "name": "konnect",
    "builds": [
-       {
-           "src": "app.js",
-           "use": "@vercel/node"
-       }
+     {
+       "src": "Server/app.js",
+       "use": "@vercel/node"
+     }
    ],
    "routes": [
-       {
-           "headers": {
-               "Access-Control-Allow-Credentials": "true",
-               "Access-Control-Allow-Origin": "*",
-               "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-               "Access-Control-Allow-Headers": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
-           },
-           "src": "/(.*)",
-           "dest": "/app.js"
-       }
+     {
+       "src": "/api/(.*)",
+       "dest": "Server/$1.js"
+     },
+     {
+       "src": "/(.*)",
+       "dest": "Server/app.js"
+     }
+   ],
+   "headers": [
+     {
+       "source": "/(.*)",
+       "headers": [
+         {
+           "key": "Access-Control-Allow-Credentials",
+           "value": "true"
+         },
+         {
+           "key": "Access-Control-Allow-Origin",
+           "value": "*"
+         },
+         {
+           "key": "Access-Control-Allow-Methods",
+           "value": "GET, POST, PUT, DELETE, OPTIONS"
+         },
+         {
+           "key": "Access-Control-Allow-Headers",
+           "value": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
+         }
+       ]
+     }
    ]
-}
+ }
+ 
