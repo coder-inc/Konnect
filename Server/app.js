@@ -49,6 +49,10 @@ app.all('*', (req, res) => {
     res.status(404).json({ message: 'Route not found' });
     });
                                           
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, () => {
+      console.log('Server is running on port', PORT);
+    });
 
 // app.listen(PORT,()=>{
 //     console.log('Server is running on',PORT) ;  // Here we are telling the app to listen that at PORT print server is running on .
